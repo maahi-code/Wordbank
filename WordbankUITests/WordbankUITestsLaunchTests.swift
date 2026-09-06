@@ -9,6 +9,7 @@ import XCTest
 
 final class WordbankUITestsLaunchTests: XCTestCase {
 
+    // swiftlint:disable:next static_over_final_class - `override` requires `class`, not `static`.
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }
