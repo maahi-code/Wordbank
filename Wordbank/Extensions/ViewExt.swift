@@ -32,4 +32,18 @@ extension View {
             .background(Color(.brandPaper))
             .foregroundStyle(Color(.brandInk))
     }
+    
+    func fullScreenBackground<S: ShapeStyle>(_ style: S) -> some View {
+        self
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background {
+                Rectangle()
+                    .fill(style)
+                    .ignoresSafeArea()
+            }
+    }
+    
+    func tappableBackground() -> some View {
+        background(Color.black.opacity(0.001))
+    }
 }

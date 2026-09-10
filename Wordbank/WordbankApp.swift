@@ -11,7 +11,7 @@ import SwiftUI
 struct WordbankApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            TabBarView()
         }
     }
 }
