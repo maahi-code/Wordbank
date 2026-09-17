@@ -46,4 +46,40 @@ extension View {
     func tappableBackground() -> some View {
         background(Color.black.opacity(0.001))
     }
+    func sectionHeaderStyle() -> some View {
+        self
+            .font(.headline)
+            .foregroundStyle(.white)
+            .primaryTextStyle()
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    func primaryTextStyle() -> some View {
+        self
+        
+            .fontDesign(.serif)
+            .kerning(0.5)
+    }
+    
+    func removeListRowFormatting() -> some View {
+        self
+            .listRowInsets(
+                EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+            )
+            .listRowBackground(Color.clear)
+    }
+    func featheredTopMask(fadeHeight: CGFloat = 40) -> some View {
+            self.mask(
+                VStack(spacing: 0) {
+            
+                    LinearGradient(
+                        colors: [.clear, .black],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    .frame(height: fadeHeight)
+                    Rectangle()
+                        .fill(Color.black)
+                }
+            )
+        }
 }

@@ -13,7 +13,7 @@ struct TabBarView: View {
             
            WordView()
                 .tabItem {
-                    Label("Words", systemImage: "eyes")
+                    Label("Words", systemImage: "book.closed")
                 }
             
             ReviewView()
@@ -23,12 +23,12 @@ struct TabBarView: View {
             
             StatsView()
                 .tabItem {
-                    Label("Stats", systemImage: "person")
+                    Label("Stats", systemImage: "chart.bar")
                 }
             
             SettingsView()
                 .tabItem {
-                    Label("Settings", systemImage: "person")
+                    Label("Settings", systemImage: "gearshape")
                 }
             
         }
