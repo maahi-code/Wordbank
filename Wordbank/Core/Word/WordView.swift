@@ -30,6 +30,7 @@ struct VocabularyEntry: Identifiable {
 }
 struct WordView: View {
     @State private var entries = VocabularyEntry.mockEntries
+    @State private var showWordDetailView: Bool = false
     var body: some View {
         NavigationStack {
             VStack {
@@ -45,6 +46,9 @@ struct WordView: View {
             }
             .fullScreenBackground(.brandPaper)
             .ignoresSafeArea(.all)
+            .navigationDestination(isPresented: $showWordDetailView) {
+                    WordDetailView()
+                }
             
             
             
@@ -126,7 +130,8 @@ struct WordView: View {
     
     private func onSelectPressed(entry: Binding<VocabularyEntry>) {
         Haptics.buttonTap()
-        entry.wrappedValue.isSelected.toggle()
+//        entry.wrappedValue.isSelected.toggle()
+        showWordDetailView = true
     }
 }
 
