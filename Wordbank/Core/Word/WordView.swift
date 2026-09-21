@@ -46,9 +46,6 @@ struct WordView: View {
             }
             .fullScreenBackground(.brandPaper)
             .ignoresSafeArea(.all)
-            .navigationDestination(isPresented: $showWordDetailView) {
-                    WordDetailView()
-                }
             
             
             
@@ -85,14 +82,14 @@ struct WordView: View {
     
     private var wordCellSection: some View {
         ForEach($entries) { $entry in
-            VStack(spacing: 15) {
-                Rectangle()
-                    .fill(.brandInk.opacity(0.2))
-                    .frame(height: 1)
-                
-                Button {
-                    onSelectPressed(entry: $entry)
-                }label: {
+            NavigationLink {
+                WordDetailView(entry: $entry)
+            } label: {
+                VStack(spacing: 15) {
+                    Rectangle()
+                        .fill(.brandInk.opacity(0.2))
+                        .frame(height: 1)
+                    
                     HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 8) {
                             
@@ -119,8 +116,9 @@ struct WordView: View {
                             .foregroundStyle(.brandPrimary)
                     }
                 }
+                .padding()
             }
-            .padding()
+
         }
        
     }

@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct WordDetailView: View {
+    @Binding var entry: VocabularyEntry
     @Environment(\.dismiss) var dismiss
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
             
             VStack(alignment: .leading, spacing: 20) {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("meticulous")
+                    Text(entry.term)
                         .font(.largeTitle)
                         .fontWeight(.semibold)
                         .primaryTextStyle()
@@ -33,7 +34,7 @@ struct WordDetailView: View {
                     .foregroundStyle(.brandInk.opacity(0.6))
                 }
                 
-                Text("very careful about small details, almost too careful")
+                Text(entry.definition)
                     .primaryTextStyle()
                     .font(.body)
                     .fixedSize(horizontal: false, vertical: true)
@@ -133,5 +134,5 @@ struct WordDetailView: View {
 }
 
 #Preview {
-    WordDetailView()
+    WordDetailView(entry: .constant(VocabularyEntry.mockEntries[0]))
 }
