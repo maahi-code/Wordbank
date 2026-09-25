@@ -10,6 +10,8 @@ import SwiftUI
 struct WordDetailView: View {
     @Binding var entry: VocabularyEntry
     @Environment(\.dismiss) var dismiss
+    
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
             
@@ -22,10 +24,10 @@ struct WordDetailView: View {
                     
                     
                     HStack {
-                        Text("adjective")
+                        Text(entry.partOfSpeech.rawValue)
                         Circle()
                             .frame(width: 3)
-                        Text("me·tic·u·lous")
+                        Text(entry.syllabification)
                     }
                     .fontWeight(.light)
                     .italic()
@@ -57,7 +59,7 @@ struct WordDetailView: View {
                     .foregroundStyle(.brandInk.opacity(0.4))
                 
                 
-                Text("From the review of the watch factory — “meticulous assembly by hand”. My manager used it about Dana's spreadsheets too, so it can be a compliment.")
+                Text(entry.note)
                     .fixedSize(horizontal: false, vertical: true)
                     .multilineTextAlignment(.leading)
                     .primaryTextStyle()
@@ -74,19 +76,24 @@ struct WordDetailView: View {
             
             HStack(spacing: 30) {
                 VStack(alignment: .leading) {
-                    Text("7")
+                    Text(entry.reviewCount, format: .number)
                         .primaryTextStyle()
-                        .font(.largeTitle)
+                        .font(.title)
                         .foregroundStyle(.brandInk)
                     
-                    Text("reviews")
+                    Text("Review")
                         .font(.subheadline)
                         .foregroundStyle(.brandInk.opacity(0.5))
                 }
                 VStack(alignment: .leading) {
-                    Text("12 Aug")
+                    Text(
+                        entry.addedDate,
+                        format: .dateTime
+                            .day()
+                            .month(.abbreviated)
+                    )
                         .primaryTextStyle()
-                        .font(.largeTitle)
+                        .font(.title)
                         .foregroundStyle(.brandInk)
                     
                     Text("added")
@@ -94,9 +101,15 @@ struct WordDetailView: View {
                         .foregroundStyle(.brandInk.opacity(0.5))
                 }
                 VStack(alignment: .leading) {
-                    Text("2d")
+                    Text(
+                        entry.lastSeenDate,
+                        format: .relative(
+                            presentation: .numeric,
+                            unitsStyle: .abbreviated
+                        )
+                    )
                         .primaryTextStyle()
-                        .font(.largeTitle)
+                        .font(.title)
                         .foregroundStyle(.brandInk)
                     
                     Text("last seen")
@@ -129,6 +142,7 @@ struct WordDetailView: View {
     
     private func onMarkButtonPressed() {
         Haptics.buttonTap()
+        entry.isMastered = true
         self.dismiss()
     }
 }

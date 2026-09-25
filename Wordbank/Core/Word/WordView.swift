@@ -6,31 +6,10 @@
 //
 
 import SwiftUI
-
-struct VocabularyEntry: Identifiable {
-    let id = UUID()
-    let term: String
-    let definition: String
-    var isSelected: Bool = false
-    
-    static let mockEntries: [VocabularyEntry] = [
-        VocabularyEntry(term: "meticulous", definition: "very careful and precise about small details"),
-        VocabularyEntry(term: "serendipity", definition: "the chance discovery of something valuable or delightful"),
-        VocabularyEntry(term: "resilient", definition: "able to recover quickly from difficulty or change"),
-        VocabularyEntry(term: "eloquent", definition: "fluent and persuasive in speaking or writing"),
-        VocabularyEntry(term: "ephemeral", definition: "lasting for only a very short time"),
-        VocabularyEntry(term: "pragmatic", definition: "focused on practical solutions and real-world results"),
-        VocabularyEntry(term: "ambiguous", definition: "open to more than one possible meaning"),
-        VocabularyEntry(term: "tenacious", definition: "persistent and unwilling to give up"),
-        VocabularyEntry(term: "benevolent", definition: "kind, generous, and willing to help others"),
-        VocabularyEntry(term: "nostalgia", definition: "a sentimental longing for a time or place in the past"),
-        VocabularyEntry(term: "candid", definition: "honest and direct, even when the truth is difficult"),
-        VocabularyEntry(term: "ubiquitous", definition: "present or appearing seemingly everywhere"),
-    ]
-}
 struct WordView: View {
     @State private var entries = VocabularyEntry.mockEntries
     @State private var showWordDetailView: Bool = false
+    @State private var showAddWordView: Bool = false
     var body: some View {
         NavigationStack {
             VStack {
@@ -45,6 +24,9 @@ struct WordView: View {
                 }
             }
             .fullScreenBackground(.brandPaper)
+            .sheet(isPresented: $showAddWordView) {
+                AddWordView()
+            }
             .ignoresSafeArea(.all)
             
             
@@ -77,7 +59,7 @@ struct WordView: View {
         }
         .padding(.top, 60)
         .padding([.horizontal, .bottom])
-        .background(.ultraThinMaterial)
+        .background(.ultraThickMaterial)
     }
     
     private var wordCellSection: some View {
@@ -111,7 +93,7 @@ struct WordView: View {
                         
                         Spacer()
                         
-                        Image(systemName: entry.isSelected ? "circle.fill" : "circle")
+                        Image(systemName: entry.isMastered ? "circle.fill" : "circle")
                             .font(.subheadline)
                             .foregroundStyle(.brandPrimary)
                     }
@@ -124,13 +106,9 @@ struct WordView: View {
     }
     private func onAddButtonPressed() {
         Haptics.buttonTap()
+        showAddWordView = true
     }
     
-    private func onSelectPressed(entry: Binding<VocabularyEntry>) {
-        Haptics.buttonTap()
-//        entry.wrappedValue.isSelected.toggle()
-        showWordDetailView = true
-    }
 }
 
 #Preview {
