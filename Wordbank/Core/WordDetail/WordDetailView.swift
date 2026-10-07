@@ -9,8 +9,9 @@ import SwiftUI
 
 struct WordDetailView: View {
     @Binding var entry: VocabularyEntry
+    var onDelete: () -> Void
     @Environment(\.dismiss) var dismiss
-    
+    @State private var showDeleteConfirmation = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
@@ -121,9 +122,9 @@ struct WordDetailView: View {
             Spacer()
             
             Button {
-                onMarkButtonPressed()
+                onMarkPressed()
             }label: {
-                Text("Mark as mastered")
+                Text(entry.isMastered ? "Unmarked" : "Mark as mastered")
                     .primaryTextStyle()
                     .foregroundStyle(.brandInk)
                     .font(.title3)
@@ -138,15 +139,43 @@ struct WordDetailView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
         .fullScreenBackground(.brandPaper)
+       
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Delete", role: .destructive) {
+                    showDeleteConfirmation = true
+                }
+                .foregroundStyle(.red)
+                
+                .confirmationDialog("", isPresented: $showDeleteConfirmation, actions: {
+                    Button("Delete \"\(entry.term)\"", role: .destructive) {
+                        onDeletePressed()
+                    }
+                    Button("Cancel", role: .cancel) { }
+                }, message: {
+                    Text("Are you sure you want to delete this word? This action cannot be undone.")
+                })
+            }
+        }
     }
     
-    private func onMarkButtonPressed() {
+    private func onMarkPressed() {
         Haptics.buttonTap()
-        entry.isMastered = true
+        entry.isMastered.toggle()
+        self.dismiss()
+    }
+    private func onDeletePressed() {
+        Haptics.buttonTap()
+        onDelete()
         self.dismiss()
     }
 }
 
 #Preview {
-    WordDetailView(entry: .constant(VocabularyEntry.mockEntries[0]))
+    NavigationStack {
+        WordDetailView(
+            entry: .constant(VocabularyEntry.mockEntries[0]),
+            onDelete: {}
+        )
+    }
 }

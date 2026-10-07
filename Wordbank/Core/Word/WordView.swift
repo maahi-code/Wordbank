@@ -13,10 +13,9 @@ struct WordView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                
                 ScrollView(.vertical) {
                     wordCellSection
-                    
-                    
                 }
                 .safeAreaInset(edge: .top) {
                     headerSection
@@ -24,8 +23,10 @@ struct WordView: View {
                 }
             }
             .fullScreenBackground(.brandPaper)
-            .sheet(isPresented: $showAddWordView) {
-                AddWordView()
+            .fullScreenCover(isPresented: $showAddWordView) {
+                NewWordView { newEntry in
+                    entries.insert(newEntry, at: 0)
+                }
             }
             .ignoresSafeArea(.all)
             
@@ -63,52 +64,63 @@ struct WordView: View {
     }
     
     private var wordCellSection: some View {
-        ForEach($entries) { $entry in
-            NavigationLink {
-                WordDetailView(entry: $entry)
-            } label: {
-                VStack(spacing: 15) {
-                    Rectangle()
-                        .fill(.brandInk.opacity(0.2))
-                        .frame(height: 1)
-                    
-                    HStack(alignment: .top) {
-                        VStack(alignment: .leading, spacing: 8) {
-                            
-                            Text(entry.term)
-                                .font(.title3)
-                                .fontWeight(.medium)
-                                .foregroundStyle(.brandInk)
-                            
-                            Text(entry.definition)
-                                .font(.subheadline)
-                                .fontWeight(.thin)
-                                .foregroundStyle(.brandInk.opacity(0.7))
-                                .multilineTextAlignment(.leading)
+        LazyVStack {
+            ForEach($entries) { $entry in
+                NavigationLink {
+                    WordDetailView(entry: $entry, onDelete: {
+                        onDeletePressed(entry)
+                    })
+                } label: {
+                    VStack(spacing: 15) {
+                        Rectangle()
+                            .fill(.brandInk.opacity(0.2))
+                            .frame(height: 1)
+                        
+                        HStack(alignment: .top) {
+                            VStack(alignment: .leading, spacing: 8) {
                                 
+                                Text(entry.term)
+                                    .font(.title3)
+                                    .fontWeight(.medium)
+                                    .foregroundStyle(.brandInk)
+                                
+                                Text(entry.definition)
+                                    .font(.subheadline)
+                                    .fontWeight(.thin)
+                                    .foregroundStyle(.brandInk.opacity(0.7))
+                                    .multilineTextAlignment(.leading)
+                            }
+                            .primaryTextStyle()
+                            Spacer()
                             
+                            Image(systemName: entry.isMastered ? "circle.fill" : "circle")
+                                .font(.subheadline)
+                                .foregroundStyle(.brandPrimary)
                         }
-                        .primaryTextStyle()
-                        
-                        
-                        Spacer()
-                        
-                        Image(systemName: entry.isMastered ? "circle.fill" : "circle")
-                            .font(.subheadline)
-                            .foregroundStyle(.brandPrimary)
+                    }
+                    .padding()
+                }
+                .swipeActions(edge: .trailing) {
+                    Button(role: .destructive) {
+                        onDeletePressed(entry)
+                    } label: {
+                        Label("Delete", systemImage: "trash")
                     }
                 }
-                .padding()
-            }
 
+            }
         }
+        
        
     }
     private func onAddButtonPressed() {
         Haptics.buttonTap()
         showAddWordView = true
     }
-    
+    private func onDeletePressed(_ entry: VocabularyEntry) {
+        Haptics.buttonTap()
+        entries.removeAll { $0.id == entry.id }
+    }
 }
 
 #Preview {
