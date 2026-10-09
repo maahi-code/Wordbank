@@ -128,11 +128,14 @@ struct SettingsView: View {
                     
                    
                 }
-                Spacer()
-                
                 Text("Wordbank 1.0")
                     .foregroundStyle(.brandPrimary.opacity(0.4))
                     .fontDesign(.monospaced)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+                Spacer()
+                
+               
             }
         }
     }
