@@ -13,7 +13,6 @@ struct WordView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                
                 ScrollView(.vertical) {
                     wordCellSection
                 }
