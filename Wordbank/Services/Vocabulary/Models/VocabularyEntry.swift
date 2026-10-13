@@ -16,9 +16,11 @@ struct VocabularyEntry: Identifiable {
     let partOfSpeech: PartOfSpeech
     let syllabification: String
     let note: String
-    let reviewCount: Int
+    var reviewCount: Int
     let addedDate: Date
-    let lastSeenDate: Date
+    var lastSeenDate: Date
+
+    var lastReviewRemembered: Bool? = nil
 
     var isMastered: Bool = false
     
@@ -33,6 +35,7 @@ struct VocabularyEntry: Identifiable {
             reviewCount: 7,
             addedDate: .now.addingTimeInterval(days: -44),
             lastSeenDate: .now.addingTimeInterval(days: -2),
+            lastReviewRemembered: true,
             isMastered: true
         ),
         VocabularyEntry(
@@ -44,6 +47,7 @@ struct VocabularyEntry: Identifiable {
             reviewCount: 10,
             addedDate: .now.addingTimeInterval(days: -90),
             lastSeenDate: .now.addingTimeInterval(days: -1),
+            lastReviewRemembered: true,
             isMastered: true
         ),
         VocabularyEntry(
@@ -54,7 +58,8 @@ struct VocabularyEntry: Identifiable {
             note: "I heard this used when discussing how a team recovered after a difficult project.",
             reviewCount: 6,
             addedDate: .now.addingTimeInterval(days: -35),
-            lastSeenDate: .now.addingTimeInterval(hours: -6)
+            lastSeenDate: .now.addingTimeInterval(hours: -6),
+            lastReviewRemembered: false
         ),
         VocabularyEntry(
             term: "eloquent",
@@ -65,6 +70,7 @@ struct VocabularyEntry: Identifiable {
             reviewCount: 12,
             addedDate: .now.addingTimeInterval(days: -120),
             lastSeenDate: .now.addingTimeInterval(days: -7),
+            lastReviewRemembered: true,
             isMastered: true
         ),
         VocabularyEntry(
@@ -75,7 +81,8 @@ struct VocabularyEntry: Identifiable {
             note: "Cherry blossoms are beautiful but ephemeral.",
             reviewCount: 3,
             addedDate: .now.addingTimeInterval(days: -14),
-            lastSeenDate: .now.addingTimeInterval(days: -3)
+            lastSeenDate: .now.addingTimeInterval(days: -3),
+            lastReviewRemembered: false
         ),
         VocabularyEntry(
             term: "pragmatic",
@@ -86,6 +93,7 @@ struct VocabularyEntry: Identifiable {
             reviewCount: 8,
             addedDate: .now.addingTimeInterval(days: -60),
             lastSeenDate: .now.addingTimeInterval(days: -12),
+            lastReviewRemembered: true,
             isMastered: true
         ),
         VocabularyEntry(
@@ -96,7 +104,8 @@ struct VocabularyEntry: Identifiable {
             note: "The instructions were ambiguous, so everyone understood them differently.",
             reviewCount: 5,
             addedDate: .now.addingTimeInterval(days: -25),
-            lastSeenDate: .now.addingTimeInterval(days: -5)
+            lastSeenDate: .now.addingTimeInterval(days: -5),
+            lastReviewRemembered: false
         ),
         VocabularyEntry(
             term: "tenacious",
@@ -107,6 +116,7 @@ struct VocabularyEntry: Identifiable {
             reviewCount: 9,
             addedDate: .now.addingTimeInterval(days: -75),
             lastSeenDate: .now.addingTimeInterval(days: -1),
+            lastReviewRemembered: true,
             isMastered: true
         ),
         VocabularyEntry(
@@ -117,7 +127,8 @@ struct VocabularyEntry: Identifiable {
             note: "The story described a benevolent ruler who cared about the community.",
             reviewCount: 4,
             addedDate: .now.addingTimeInterval(days: -40),
-            lastSeenDate: .now.addingTimeInterval(days: -8)
+            lastSeenDate: .now.addingTimeInterval(days: -8),
+            lastReviewRemembered: false
         ),
         VocabularyEntry(
             term: "nostalgia",
@@ -128,6 +139,7 @@ struct VocabularyEntry: Identifiable {
             reviewCount: 15,
             addedDate: .now.addingTimeInterval(months: -6),
             lastSeenDate: .now.addingTimeInterval(days: -15),
+            lastReviewRemembered: true,
             isMastered: true
         ),
         VocabularyEntry(
@@ -138,7 +150,8 @@ struct VocabularyEntry: Identifiable {
             note: "She gave candid feedback about what needed to improve.",
             reviewCount: 5,
             addedDate: .now.addingTimeInterval(days: -20),
-            lastSeenDate: .now.addingTimeInterval(days: -4)
+            lastSeenDate: .now.addingTimeInterval(days: -4),
+            lastReviewRemembered: true
         ),
         VocabularyEntry(
             term: "ubiquitous",
@@ -148,7 +161,8 @@ struct VocabularyEntry: Identifiable {
             note: "Smartphones have become ubiquitous in everyday life.",
             reviewCount: 2,
             addedDate: .now.addingTimeInterval(days: -10),
-            lastSeenDate: .now.addingTimeInterval(hours: -2)
+            lastSeenDate: .now.addingTimeInterval(hours: -2),
+            lastReviewRemembered: false
         )
     ]
 }
