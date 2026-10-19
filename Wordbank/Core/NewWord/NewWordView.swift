@@ -16,7 +16,6 @@ struct NewWordView: View {
     
     @FocusState private var focusedField: NewWordField?
     
-
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {

@@ -4,7 +4,7 @@ import SwiftUI
 enum NewWordField {
     case word, definition, note
 }
-struct UnderlinedTextField<FocusType: Hashable> : View {
+struct UnderlinedTextField<FocusType: Hashable>: View {
     let label: String
     let placeholder: String
     @Binding var text: String

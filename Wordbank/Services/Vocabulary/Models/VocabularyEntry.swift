@@ -21,7 +21,6 @@ struct VocabularyEntry: Identifiable {
     var lastSeenDate: Date
 
     var lastReviewRemembered: Bool? = nil
-
     var isMastered: Bool = false
     
     
@@ -166,6 +165,3 @@ struct VocabularyEntry: Identifiable {
         )
     ]
 }
-
-
-

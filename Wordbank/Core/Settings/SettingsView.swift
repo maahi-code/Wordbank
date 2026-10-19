@@ -44,12 +44,10 @@ struct SettingsView: View {
                                 .foregroundStyle(.brandInk.opacity(0.5))
                             
                             
-                            
                         }
                         Spacer()
                         
                         CircularStepper(value: $value, range: 0...20)
-                        
                         
                     }
                     .padding()
@@ -66,12 +64,10 @@ struct SettingsView: View {
                         
                         Divider()
                         
-                        
                         Toggle("Daily reminder", isOn: $enableDailyReminder)
                             .padding()
                         
                         Divider()
-                        
                         
                         HStack {
                             Text("Time")
@@ -126,7 +122,6 @@ struct SettingsView: View {
                     }
                     .padding(.vertical)
                     
-                   
                 }
                 Text("Wordbank 1.0")
                     .foregroundStyle(.brandPrimary.opacity(0.4))
@@ -134,7 +129,6 @@ struct SettingsView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                 Spacer()
-                
                
             }
         }

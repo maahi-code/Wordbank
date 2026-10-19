@@ -108,15 +108,12 @@ struct ReviewView: View {
                                     .primaryTextStyle()
                                     .foregroundStyle(.brandInk)
 
-
                                 Spacer()
 
                                 Text("Tap anywhere to reveal")
                                     .fontDesign(.serif)
                                     .foregroundStyle(.secondary)
                                     .font(.subheadline)
-
-
                             }
                             .contentShape(.rect)
                             .onTapGesture {

@@ -110,7 +110,6 @@ struct WordView: View {
             }
         }
         
-       
     }
     private func onAddButtonPressed() {
         Haptics.buttonTap()

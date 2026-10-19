@@ -37,7 +37,6 @@ struct ThinLinearProgressBar: View {
     }
 }
 
-
 #Preview {
     ThinLinearProgressBar(value: 0.2, total: 1.0)
 }
